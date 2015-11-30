@@ -3,9 +3,11 @@
 
 {% load staticfiles %}
 {% include 'head.html' %}
-
-
+<head>
+	<title>New Post</title>
+</head>
 <body>
+<<<<<<< HEAD
 	<nav class="flex">
 		<div class="username">
 			<a href=/profile-mod/>
@@ -25,7 +27,14 @@
 		</div>
 	</nav>
 	<div class="main newpost">
+=======
+	{% include 'nav.html' %}
+	<div class="main">
+>>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
 		<form method="post" action="/newpostsubmit/" name="newpost" enctype="multipart/form-data">
+			</br>
+			</br>
+			</br>
 			<h1>New Memory</h1>
 			<p class="autosave-post">Draft saved <b>{% now "f" %} {% now "m/d/Y" %}</b></p>
 			<div class="title-post">

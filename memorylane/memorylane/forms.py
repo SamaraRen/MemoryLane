@@ -1,7 +1,7 @@
 #files.py
 import re
 from django import forms
-from .models import User, Memory
+from .models import Memory
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -28,5 +28,5 @@ class RegistrationForm(forms.Form):
     #             raise forms.ValidationError(_("The two password fields did not match."))
     #     return self.cleaned_data
 
-class BioFrom(forms.Form):
+class BioForm(forms.Form):
     bioTextArea = forms.CharField(label='BioTextArea', max_length=100)

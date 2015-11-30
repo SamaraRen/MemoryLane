@@ -3,39 +3,30 @@
 
 {% load staticfiles %}
 {% include 'head.html' %}
+<head>
+	<title>{{username}}'s Timeline</title>
+</head>
 
 <body>
-	<nav class="flex">
-		<div class="username">
-			<a href=/profile-mod/>
-				<h1><i class="fa fa-user"></i> <span>matthew_ong</span></h1>
-			</a>
-		</div>
-		<div class="middleLogo">
-			<a href=/timeline/>
-				<img src="{% static "img/ml-mod.png" %}" alt="logo" style= "height: 40px;margin-top: 15px;box-sizing: border-box;">
-			</a>
-		</div>
-		<div class="settings flex">
-			<div class="search">
-	  			<input placeholder="Search &#xf002;">
-			</div>
-			<a href=/settings/><i class="fa fa-cog"></i></a>
-		</div>
-	</nav>
+	{% include 'nav.html' %}
 		<!-- div to hold all elements of a single timeline post -->
-
-		<div class="gridContainer flex">
+	<div class="gridContainer flex">
 		<div class="main">
+		{% for memory in memories reversed %}
 			<div class="memory">
 			<!-- div to hold proPic, as well as present name under picture -->
 				<div class="author-info" >
+<<<<<<< HEAD
 					<a href="/profile-mod/">
+=======
+					<a href=/profile-mod/>
+>>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
 						<img src="{% static "img/matthew.jpg" %}" class="author-image">
-						<p class="author-name">Matthew</p>
+						<p class="author-name">Author</p>
 					</a>
 				</div>
 				<div class="post flex">
+<<<<<<< HEAD
 					<a href="/post/1"><div class="panorama" style="background-image: url({% static "img/panorama.jpg" %})">
 						<div class="overlay">
 							<p>Donec in mollis ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec sed venenatis nisi. Cras quis nibh in tortor finibus hendrerit in vel arcu...</p>
@@ -64,14 +55,18 @@
 						<div class="overlay">
 							<p>Praesent imperdiet enim tortor, quis suscipit velit bibendum at. Cras cursus ligula fermentum, convallis sem feugiat, egestas massa. Nulla eu dui elementum, gravida ex sed, sagittis nunc. Vestibulum varius, tortor quis feugiat imperdiet...</p>
 						</div>
-							<div class="title flex">
-								<h2>Consectetur Adipiscing Elit</h2><h2>September 28th, 2015</h2>
+=======
+					<a href=/post/1>
+						<div class="panorama" style="background-image: url({% static "img/panorama.jpg"%})">
+							<div class="overlay">
+								<p>{{memory.description}}</p>
 							</div>
-						</div></a>
-					<div class="map" style="background-image:url({% static "img/map2.png" %})">
-						<div class="location">
-							<h2><i class="fa fa-map-marker"></i>Chicago, IL</h2>
+>>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
+							<div class="title flex">
+								<h2>{{memory.name}}</h2><h2>{{memory.date_created}}</h2>
+							</div>
 						</div>
+<<<<<<< HEAD
 					</div>
 				</div>
 			</div>
@@ -93,12 +88,17 @@
 							</div>
 						</div></a>
 					<div class="map" style="background-image:url({% static "img/map3.png" %})">
+=======
+					</a>
+					<div class="map" id="map">
+>>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
 						<div class="location">
-							<h2><i class="fa fa-globe"></i>Tokyo, JP</h2>
+							<h2><i class="fa fa-globe"></i>{{memory.location}}</h2>
 						</div>
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
 			<div class="memory">
 			<!-- div to hold proPic, as well as present name under picture -->
 				<div class="author-info" >
@@ -123,6 +123,9 @@
 					</div>
 				</div>
 			
+=======
+		{% endfor %}
+>>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
 		</div>
 	</div>
 </div>
