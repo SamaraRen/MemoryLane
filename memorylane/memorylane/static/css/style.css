@@ -374,7 +374,7 @@ a.signup {
 	margin-top: 5px;
 }
 
-.thumb {
+.group .thumb {
 	min-width: 30%;
     height: 100px;
     margin: 0 0 10px;
@@ -721,9 +721,9 @@ a.signup {
 
 .map .location {
 	width: 100%;
-	padding-right: 5px;
+	padding: 7px 5px 0 0;
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
     text-align: right;
     color: rgba(255,255,255,0.8);
@@ -870,10 +870,8 @@ a.signup {
 
 .dropdown .dropdown-menu {
     position: absolute;
-
     top: 100%;
     left: -90px;
-
     margin: 0;
 }
 .dropdown:hover .dropdown-menu {
@@ -889,7 +887,7 @@ a.signup {
     top: 100%;
     display: none;
     margin: 0;
-
+	font-size: 20px;
     list-style: none;
     width: 100%;
    	padding: 0;

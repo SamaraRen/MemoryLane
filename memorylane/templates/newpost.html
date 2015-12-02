@@ -7,30 +7,8 @@
 	<title>New Post</title>
 </head>
 <body>
-<<<<<<< HEAD
-	<nav class="flex">
-		<div class="username">
-			<a href=/profile-mod/>
-				<h1>{{username}}</h1>
-			</a>
-		</div>
-		<div class="middleLogo">
-			<a href=/timeline/>
-				<img src="{% static "img/ml-mod.png" %}" alt="logo" id="middleLogo">
-			</a>
-		</div>
-		<div class="settings flex">
-			<div class="search">
-	  			<input placeholder="Search &#xf002;">
-			</div>
-			<a href=/settings/><i class="fa fa-cog"></i></a>
-		</div>
-	</nav>
-	<div class="main newpost">
-=======
 	{% include 'nav.html' %}
 	<div class="main">
->>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
 		<form method="post" action="/newpostsubmit/" name="newpost" enctype="multipart/form-data">
 			</br>
 			</br>

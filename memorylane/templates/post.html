@@ -7,83 +7,19 @@
         display: flex;
         flex-direction: column;
     }
-<<<<<<< HEAD
-
-    </script-->
-    <script>
-     var geocoder;
-  var map;
-  function initialize() {
-    var map = new google.maps.Map(document.getElementById('mapContainer'), {
-    zoom: 8,
-    center: {lat: -34.397, lng: 150.644},
-    styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"},{"color":"#efebe2"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.attraction","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.government","elementType":"all","stylers":[{"color":"#dfdcd5"}]},{"featureType":"poi.medical","elementType":"all","stylers":[{"color":"#dfdcd5"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"color":"#bad294"}]},{"featureType":"poi.place_of_worship","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.school","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.sports_complex","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#fbfbfb"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#a5d7e0"}]}]
-  });
-  var geocoder = new google.maps.Geocoder();
-    codeAddress(geocoder, map);
-  }
-
-  function codeAddress(geocoder, map) {
-    geocoder.geocode( {'address':"{{memory.location}}"}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  }
-
-    </script>
-    <style>
         .gmnoprint, .gm-style-cc {
             display: none;
         }
-    </style>
-</head>
-
-=======
     .location-memory {
         padding-top: 30px;
         line-height: 1;
     }
 </style>
->>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
 <body>
     {% include 'nav.html' %}
     <!-- div to hold all elements of a single timeline post -->
     <div class="single-post">
         <!-- div to hold panaroma shot and top bar(title and date) -->
-<<<<<<< HEAD
-    <div class = "panoramaElement">
-        <div class="panoramaHeader flex">
-            <p class="panoramaLeft">{{memory.name}}</p>
-            <p class="panoramaRight">{{memory.date_created}}</p>
-    </div>
-        <img src="{{image}}" class="panoramaResize">        
-        <div class="content">
-            <p class="textRemember">I remember...</p>
-            <p class="textBody">
-            {{memory.description}}
-            </p>
-        </div>
-            <div id="sidebar" class="flex sticky">
-                <div class="map">
-                    <div class="map" id="mapContainer">
-                        {#% load easy_maps_tags %#}
-                        <!-- Default map with 300x400 dimensions -->
-                        {#% easy_map '{{memory.location}}' 300 400 %#}
-                        {#% load easy_maps_tags cache %#}
-                        {#% cache 600 my_map firm.address %#}
-                            {#% easy_map firm.address 300 400 %#}
-                        {#% endcache %#}
-                    </div>
-                    <div class="location">
-                        <h2><i class="fa fa-map-marker"></i>{{memory.location}}</h2>
-=======
         <div class = "panoramaElement">
             <div class="panoramaHeader">
                 <p class="panoramaLeft">{{memory.name}}</p>
@@ -121,9 +57,10 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="map" id="map">
+                                    <div class="map">
+                                        <div id="map-{{memory.id}}"></div>
                                         <div class="location">
-                                            <h2><i class="fa fa-map-marker"></i>{{memory.location}}</h2>
+                                            <h2><i class="fa fa-globe"></i>{{memory.location}}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -138,16 +75,15 @@
                                 vertical-align: bottom;
                                 z-index: 1-->
                         {% endfor %}
->>>>>>> 795bf3523db8e9d2d88165ab9685dfefe4d4b4d0
                     </div>
                 </div>
                 <div id="sidebar" class="flex sticky">
-                    <div class="map" id="map"></div>
-                    <a href=/location/>
+                    <div class="map">
+                        <div id="map-{{memory.id}}"></div>
                         <div class="location">
-                            <h2><i class="fa fa-map-marker"></i>{{memory.location}}</h2>
+                            <h2><i class="fa fa-globe"></i>{{memory.location}}</h2>
                         </div>
-                    </a>
+                    </div>
                     <p class="textWith">with...</p>
                     <div class="group flex friends">
                         <a class="thumb" href="/profile-mod/"><div style="background-image: url({% static "img/preska.jpg" %})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">Preska</span></div></a>
@@ -158,7 +94,6 @@
                 </div>
             </div>
         </div>
-        <br>
     </div>
 </body>
 </html>

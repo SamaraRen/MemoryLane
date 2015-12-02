@@ -4,21 +4,31 @@
 	<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
 	<link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.min.css" %}">
 	<link rel="icon" href="{% static "image/x-icon" %}" type=""/>
+	<script src="{% static "jquery.lazyload-any.min.js" %}"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<link rel="shortcut icon" href= "{% static "image/x-icon" %}"type=/>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC63gKI9GdSMMPoXZq-hGwAv82CDIAfD8M&libraries=places&callback=initialize" async defer>
+    </script>
     <script>
     var geocoder;
     var map;
+    var address;
     function initialize() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
-            center: {lat: -34.397, lng: 150.644}
-        });
-        var geocoder = new google.maps.Geocoder();
-        codeAddress(geocoder, map);
+    	var geocoder = new google.maps.Geocoder();
+    	var mapOptions = {
+    		disableDefaultUI: true,
+    		zoom: 8,
+    		center: {lat:-34.397, lng: 150.644},
+    		styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"},{"color":"#efebe2"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.attraction","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.government","elementType":"all","stylers":[{"color":"#dfdcd5"}]},{"featureType":"poi.medical","elementType":"all","stylers":[{"color":"#dfdcd5"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"color":"#bad294"}]},{"featureType":"poi.place_of_worship","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.school","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"poi.sports_complex","elementType":"all","stylers":[{"color":"#efebe2"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"#fbfbfb"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#a5d7e0"}]}]
+        };
+    	{% for memory in memories reversed %}
+        var map{{memory.id}} = new google.maps.Map(document.getElementById('map-{{memory.id}}'),mapOptions);
+        var address{{memory.id}} = "{{memory.location}}";
+        codeAddress(geocoder, map{{memory.id}}, address{{memory.id}});
+        {% endfor %}
     }
-    function codeAddress(geocoder, map) {
-        geocoder.geocode( {'address':"{{memory.location}}"}, function(results, status) {
+    function codeAddress(geocoder, map, address) {
+        geocoder.geocode( {'address':address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
@@ -30,8 +40,6 @@
             }
         });
     }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC63gKI9GdSMMPoXZq-hGwAv82CDIAfD8M&signed_in=true&libraries=places&callback=initialize" async defer>
     </script>
     <script>
     //$(function(){ // document ready
