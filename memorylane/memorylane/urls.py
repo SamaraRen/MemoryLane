@@ -21,11 +21,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^settings/', views.settings, name='settings'),
     url(r'^signup/', views.signup, name='signup'),
     url(r'^post/(?P<memory_id>[0-9]+)/$', views.post, name="post"),
-    url(r'^passwordreset/', views.passwordreset, name="passwordreset"),
+    url(r'^password-reset/', views.passwordreset, name="passwordreset"),
     url(r'^login/', views.login, name="login"),
+    url(r'^logout/$', views.logout, name='logout'),
     url(r'^friends/', views.friends, name="friends"),
     url(r'^profiletest/(?P<user_id>[0-9]+)/$', views.profiletest, name='profiletest'),
     url(r'^userlist/$', views.userlist, name='userlist'),
@@ -33,6 +33,11 @@ urlpatterns = [
     url(r'^newpostsubmit/$', views.newpostsubmit, name='newpostsubmit'),
     url(r'^timeline/$', views.timeline, name='timeline'),
     url(r'^profile-mod/$', views.profilemod, name='profilemod'),
-    url(r'^register/$', views.register, name='register'),
-    
+    url(r'^myprofile/$', views.myprofile, name='myprofile'),
+    url(r'^account/$', views.account, name='account'),
+    url(r'^general/$', views.general, name='general'),
+    url(r'^delete/$', views.delete, name='delete'),
+    url(r'^following/$', views.following, name='following'),
+    url(r'^follower/$', views.follower, name='follower'),
+    url(r'^post/$', views.post, name='post')
 ]
