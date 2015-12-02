@@ -1,6 +1,11 @@
 <head>
 	<meta charset="UTF-8">
 	{% load staticfiles %}
+    {% load friendshiptags %}
+    {% friends request.author %}
+    {% followers request.author %}
+    {% following request.author %}
+    {% friend_requests request.author %}
 	<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
 	<link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.min.css" %}">
 	<link rel="icon" href="{% static "image/x-icon" %}" type=""/>

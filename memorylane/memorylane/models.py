@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
         return self.first_name + " " + self.last_name
 '''
 class Author(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    user = models.OneToOneField(User, on_delete = models.CASCADE, related_name='date_created')
     username = models.CharField(max_length=5000) 
     friends = models.ManyToManyField("self")
     propic = models.CharField(max_length=1000)

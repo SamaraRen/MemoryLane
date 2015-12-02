@@ -19,7 +19,7 @@
 				<div class="author-info" >
 					<a href=/profile-mod/>
 						<img src="{% static "img/matthew.jpg" %}" class="author-image">
-						<p class="author-name">Author</p>
+						<p class="author-name">{{memory.author.username}}</p>
 					</a>
 				</div>
 				<div class="post flex">
@@ -35,7 +35,7 @@
 					</a>
 					<div class="map" id="map">
 						<div class="location">
-							<h2><i class="fa fa-globe"></i>{{memory.location}}</h2>
+							<h2><i class="fa fa-globe"></i>{{memory.location.name}}</h2>
 						</div>
 					</div>
 				</div>

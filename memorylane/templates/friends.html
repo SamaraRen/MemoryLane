@@ -2,57 +2,13 @@
 {% load staticfiles %}
 {% block friends %} is-active {% endblock %}
 {% block loadPeople %}
+{% for friend in friends reversed %}
 <a class="thumb" href="/profile-mod/">
 	<div style="background-image: url({% static "img/preska.jpg" %})">
 		<div class="overlay">
 			<img src="{% static "img/overlay.png" %}">
-			<p>{{bio}}I love Frouble.</p>
-			<span class="name">Preska</span>
-		</div>
-	</div>
-</a>
-<a class="thumb" href="/profile-mod/">
-	<div style="background-image: url({% static "img/samara.jpg" %})">
-		<div class="overlay">
-			<img src="{% static "img/overlay.png" %}">
-			<p>{{bio}}I love Frouble.</p>
-			<span class="name">Samara</span>
-		</div>
-	</div>
-</a>
-<a class="thumb" href="/profile-mod/">
-	<div style="background-image: url({% static "img/zak.jpg" %})">
-		<div class="overlay">
-			<img src="{% static "img/overlay.png" %}">
-			<p>{{bio}}I love Frouble.</p>
-			<span class="name">Zac</span>
-		</div>
-	</div>
-</a>
-<a class="thumb" href="/profile-mod/">
-	<div style="background-image: url({% static "img/aneesh.jpg" %})">
-		<div class="overlay">
-			<img src="{% static "img/overlay.png" %}">
-			<p>{{bio}}I love Frouble.</p>
-			<span class="name">Aneesh</span>
-		</div>
-	</div>
-</a>
-<a class="thumb" href="/profile-mod/">
-	<div style="background-image: url({% static "img/eric.jpg" %})">
-		<div class="overlay">
-			<img src="{% static "img/overlay.png" %}">
-			<p>{{bio}}I love Frouble.</p>
-			<span class="name">Eric</span>
-		</div>
-	</div>
-</a>
-<a class="thumb" href="/profile-mod/">
-	<div style="background-image: url({% static "img/marianne.jpg" %})">
-		<div class="overlay">
-			<img src="{% static "img/overlay.png" %}">
-			<p>{{bio}}I love Frouble.</p>
-			<span class="name">Marianne</span>
+			<p>{{friend.bio}}I love Frouble.</p>
+			<span class="name">{{friend.username}}</span>
 		</div>
 	</div>
 </a>

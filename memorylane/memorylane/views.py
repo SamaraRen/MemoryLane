@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from .forms import *
 from datetime import datetime
 from .models import Memory
-from .models import UserProfile
+#from .models import UserProfile
 
 from django.contrib.auth.models import User
+from friendship.models import Friend, Follow
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as a_login
 from django.contrib.auth import logout as a_logout
@@ -31,17 +32,17 @@ def signup(request):
         form = RegistrationForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(username=username)
-        if user is None:
+        authorname = authenticate(username=username)
+        if authorname is None:
             email = request.POST['email']
             if form.is_valid():
-                user = User.objects.create_user(
+                author = User.objects.create_user(
                 username=username,
                 password=password,
                 email=email
                 )
-                user.save()
-                profile = UserProfile(username=username, date_created=datetime.now())
+                author.save()
+                profile = User(username=username) #profile = User(username=username, date_created=datetime.now())
                 profile.save()
                 return HttpResponseRedirect('/timeline/')
         else:
@@ -64,7 +65,9 @@ def newpost(request):
 
 def newpostsubmit(request):
     if 'title' in request.POST:
-        m = Memory(name=request.POST['title'], author=request.user.username, location=request.POST['location'], date_created=datetime.now(), description=request.POST['note_text'], image=request.FILES['media'])
+        l = Location(name = request.Post['location'], address = request.Post['location'])
+        l.save()
+        m = Memory(name=request.POST['title'], author=request.user.username, location=l, date_created=datetime.now(), description=request.POST['note_text'], image=request.FILES['media'])
         m.save()
         memory = get_object_or_404(Memory, pk=m.id)
         author = get_object_or_404(User, username=memory.author)
@@ -95,10 +98,15 @@ def login(request):
 
 def logout(request):
     a_logout(request)
-    return render(request, 'login.html', {})    
+    return render(request, 'login.html', {})
 
 def friends(request):
-	return render(request, 'friends.html', {})
+    author = get_object_or_404(User, pk=1)
+    username = request.user.username
+    first_name = author.first_name
+    users = User.objects.all()
+    friends = Friend.objects.friends(request.user)
+    return render(request, 'friends.html', {"friends": friends, "username": username})
 
 def following(request):
     return render(request, 'following.html', {})
@@ -108,14 +116,14 @@ def follower(request):
 
 def timeline(request):
     author = get_object_or_404(User, pk=1)
-    memory = get_object_or_404(Memory, pk=1)
+    #memory = get_object_or_404(Memory, pk=1)
     username = request.user.username
     first_name = author.first_name
-    description = memory.description
-    location = memory.location
-    name = memory.name
-    image = memory.image
-    date_created = memory.date_created
+    #description = memory.description
+    #location = memory.location.name
+    #name = memory.name
+    #image = memory.image
+    #date_created = memory.date_created
     users = User.objects.all()
     memories = Memory.objects.all()
     return render(request, 'timeline.html', {"memories": memories, "username": username})
@@ -127,7 +135,7 @@ def profilemod(request):
     first_name = request.user.first_name
     last_name = request.user.last_name
     description = memory.description
-    location = memory.location
+    location = memory.location.name
     name = memory.name
     image = memory.image
     date_created = memory.date_created
