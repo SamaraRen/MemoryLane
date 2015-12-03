@@ -6,15 +6,6 @@
 
 <head>
 	<title>{{username}}'s Profile</title>
-	<style>
-	.map > div:first-child {
-		width: 100%;
-		height: 220px;
-	}
-	</style>
-	<script>
-		$('.memory').lazyload();
-	</script>
 </head>
 <body>
 	{% include 'nav.html' %}
@@ -35,18 +26,17 @@
 			</div>
 		{% for memory in memories reversed %}
 			<div class="post flex">
-				<a href=/post/{{memory.id}}><div class="panorama" style="background-image: url({% static "img/panorama2.jpg" %})">
+				<a href=/post/{{memory.id}}><div class="panorama" style="background-image: url({{memory.image|cut:'memorylane'}})">
 					<div class="overlay">
-						<p>{{memory.description}}</p>
+						<p>{{memory.description|truncatechars:250}}</p>
 					</div>
 					<div class="title flex">
 						<h2>{{memory.name}}</h2><h2>{{memory.date_created}}</h2>
 					</div>
 				</div></a>
-				<div class="map">
-					<div id="map-{{memory.id}}"></div>
+				<div class="map" style="background-image:url('https://maps.googleapis.com/maps/api/staticmap?center={{memory.location}}&zoom=10&size=400x400&key=AIzaSyBT_8Pt--iQ8S1z5cYol9cNbrsnA8Sirys')">
 					<div class="location">
-						<h2><i class="fa fa-globe"></i>{{memory.location}}</h2>
+						<h2><i class="fa fa-map-marker"></i>{{memory.location}}</h2>
 					</div>
 				</div>
 			</div>
@@ -63,7 +53,7 @@
 						</div>
 						<div>
 							<h3><i class="fa fa-clock-o"></i> Joined:</h3>
-							<span>8/16/2015</span>
+							<span>{{user.date_created}}</span>
 						</div>
 					</div>
 				</div>
@@ -85,5 +75,6 @@
 			</div>
 		</div>
 	</div>
+	<script src="{% static "js/googlemaps.js" %}"></script>
 </body>
 </html>
