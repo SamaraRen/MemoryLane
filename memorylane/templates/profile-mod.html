@@ -3,7 +3,6 @@
 
 {% load staticfiles %}
 {% include 'head.html' %}
-
 <head>
 	<title>{{profile.username}}'s Profile</title>
 </head>
@@ -64,19 +63,23 @@
 					</div>
 				</div>
 				<hr>
-				<div class="about-passage">
-					<p>{{profile.bio}}</p>
+				<div>
+					<a href=/addfriend/{{user.id}}>
+					add friend
+					</a>
 				</div>
 			</div>
 			<div class="widget">
 				<a href=/friends/><h2>Friends</h2></a>
 				<div class="group flex friends">
-					<a class="thumb" href><div style="background-image: url({% static "img/preska.jpg" %})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">Preska</span></div></a>
-					<a class="thumb" href><div style="background-image: url({% static "img/samara.jpg" %})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">Samara</span></div></a>
-					<a class="thumb" href><div style="background-image: url({% static "img/zak.jpg" %})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">Zak</span></div></a>
-					<a class="thumb" href><div style="background-image: url({% static "img/aneesh.jpg" %})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">Aneesh</span></div></a>
-					<a class="thumb" href><div style="background-image: url({% static "img/eric.jpg" %})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">Eric</span></div></a>
-					<a class="thumb" href><div style="background-image: url({% static "img/matthew.jpg" %})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">Matthew</span></div></a>
+					{% for friend, friendProfileImage in link reversed %}
+					<a class="thumb" href=/profile-mod/{{friend.id}}>
+						<div style="background-image: url({{friendProfileImage|cut:'memorylane'}})"><img class="overlay" src="{% static "img/overlay.png" %}"><span class="name">{{friend.first_name}}</span>
+						</div>
+					</a>
+					{% empty %}
+		    		<h2>This person hasn't met any friend yet</h2>
+					{% endfor %}
 				</div>
 			</div>
 		</div>

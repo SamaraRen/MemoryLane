@@ -449,7 +449,7 @@ a.signup {
 		margin-right: 0;
 		border-left: 1px solid rgba(10,18,13,0.2);
 	}
-.preview {
+.newpost .preview {
 	width: 100%;
 	height: 200px;
 	background-size: cover;
@@ -459,7 +459,7 @@ a.signup {
 	text-shadow: 0 0 4px rgba(0,0,0,0.75);
 	box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
-	.preview input {
+	.newpost .preview input {
 		width: 100%;
 		height: 40px;
 		margin-top: 3px;
@@ -472,10 +472,10 @@ a.signup {
 		box-sizing: border-box;
 		transition: all 0.25s ease;
 	}
-		.preview:hover input {
+		.newpost .preview:hover input {
 		    font-size: 28px;
 		}
-		.preview input::-webkit-input-placeholder {
+		.newpost .preview input::-webkit-input-placeholder {
 		   color: #ecf0f1;
 		}
 
@@ -490,7 +490,7 @@ a.signup {
 		:-ms-input-placeholder {  
 		   color: #ecf0f1;  
 		}
-	.preview .overlay {
+	.newpost .preview .overlay {
 		background-image: url(img/overlay.png);
 		position: absolute;
 		width: 100%;
@@ -499,22 +499,22 @@ a.signup {
 		left: 0;
 		transition: opacity 0.25s ease;
 	}
-		.preview .overlay:first-child {
+		.newpost .preview .overlay:first-child {
 			opacity: 0.3;
 		}
-		.preview .overlay:last-child {
+		.newpost .preview .overlay:last-child {
 			background-image: none;
 		}
-		.preview:hover .overlay {
+		.newpost .preview:hover .overlay {
 			opacity: 1;
 		}
-	.preview #date {
+	.newpost .preview #date {
 		position: absolute;
 		font-size: 24px;
 		top: 5px;
 		right: 5px;
 	}
-.upload, .tags, .post-settings {
+.newpost .upload, .tags, .post-settings {
 	display: none;
 	padding: 10px 0;
 	text-align: center;
@@ -1007,7 +1007,7 @@ a.signup {
         background: transparent;
         border: none;
         max-width: 100%;
-        padding: 0 0 5px;
+        padding: 5px;
         transition: all 0.25s ease;
     }
         .settings-container input[type="email"] {
@@ -1025,6 +1025,11 @@ a.signup {
     width: 50%;
 }
 .primary-info .preview {
+	/*background-position: center center;*/
+	position: relative;
+	color: #ecf0f1;
+	text-shadow: 0 0 4px rgba(0,0,0,0.75);
+	box-shadow: 0 0 10px rgba(0,0,0,0.25);
     background-size: cover;
     width: 200px;
     height: 200px;
@@ -1038,7 +1043,7 @@ input#fname {
 }
 .settings-container > div > .secondary-info > .flex input {
     width: 100%;
-    margin-left: 10px;
+    margin-left: 50px;
 }
 #settings-submit {
     margin-top: 50px;

@@ -163,7 +163,10 @@ def settingssubmit(request):
     if request.method == 'POST':
         if 'livesin' in request.POST:
             profile = get_object_or_404(UserProfile, username=request.user.username)
-            profile.image = request.FILES['media']
+            try:
+                profile.image = request.FILES['media']
+            except:
+                pass
             profile.livesin = request.POST['livesin']
             request.user.username = request.POST['username']
             request.user.email = request.POST['email']
@@ -259,10 +262,17 @@ def profilemod(request, authorProfile_id):
     username = request.user.username
     first_name = user.first_name
     last_name = user.last_name
+    all_friends = Friend.objects.friends(user)
+    friendsProfileImages=[]
+    for friend in all_friends:
+        friendProfile = get_object_or_404(UserProfile, username=friend.username)
+        friendsProfileImages.append(friendProfile.image)
+    link=zip(all_friends, friendsProfileImages)
     memories = Memory.objects.filter(author=author.username)
     #user = request.user
     profile = get_object_or_404(UserProfile, username=request.user.username)
-    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author })
+    actualUser = request.user
+    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author, "all_friends": all_friends, "actualUser": actualUser, "link": link })
 
 def getUsers(request):
     users = User.objects.all()
@@ -330,3 +340,15 @@ def imageUpload(request):
             response_data=[{"success": "1"}]
             return HttpResponse(simplejson.dumps(response_data), content_type='application/json')
     return render(request, 'imageUpload.html', {})
+
+def addfriend(request, pfriend_id):
+    pfriend = get_object_or_404(User, id=pfriend_id)
+    new_relationship = Friend.objects.add_friend(request.user, pfriend)
+    new_relationship.accept()
+    return profilemod(request, pfriend_id)
+
+
+
+
+
+

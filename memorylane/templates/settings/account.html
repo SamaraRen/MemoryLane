@@ -6,7 +6,41 @@
 <head>
   <title>Account Settings</title>
 </head>
+<style>
+.primary-info .preview .overlay {
+    height: 100%;
+    width: 100%;
+    background-image: url(../img/post-overlay.png);
+    opacity: 0;
+    color: #ecf0f1;
+    z-index: 10;
+    transition: opacity 0.25s ease;
+}
 
+    .primary-info .preview:hover .overlay {
+        opacity: 1;
+    }
+
+.primary-info .preview .overlay p {
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    box-sizing: border-box;
+}
+
+.primary-info .preview .overlay input {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+</style>
 <body>
     {% include 'nav.html' %}
     <div class="main">
@@ -18,13 +52,16 @@
                     <div class="flex settings-container">
                         <div>
                             <div class="primary-info flex">
-                                <div class="preview" style="background-image:url({{profile.image|cut:'memorylane'}})"></div>
+                                <div class="preview" style="background-image:url({{profile.image|cut:'memorylane'}})">
+                                    <div class="overlay">
+                                        <p>Update profile photo</p>
+                                        <input type="file" name="media" accept="image/gif, image/jpeg, image/jpg, image/png" class="file-input js-tooltip" id="imgInp">
+                                    </div>
+                                </div>
                                 <div class="primary-inputs">
                                     <input id="fname" type="text" name="fname" value="{{user.first_name}}" placeholder="First" />
                                     <input type="text" name="lname" value="{{user.last_name}}" placeholder="Last" />
                                     <hr class="section-divider">
-                                    <h3>Edit Profile Picture</h3>
-                                    <input type="file" name="media" accept="image/gif, image/jpeg, image/jpg, image/png" class="file-input js-tooltip" id="imgInp">
                                     <input type="hidden" value="{{user.username}}" name="user_id"/>
                                 </div>
                             </div>
