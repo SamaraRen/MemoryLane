@@ -275,7 +275,17 @@ def profilemod(request, authorProfile_id):
     actualUser = request.user
     isFriend = Friend.objects.are_friends(actualUser, user)
     isSelf = actualUser==user
-    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author, "all_friends": all_friends, "actualUser": actualUser, "link": link, "isFriend": isFriend, "isSelf": isSelf, "countfriends": countfriends})
+    requests = Friend.objects.unread_requests(user=request.user)
+    friendshiprequests = []
+    requestsent = False
+    for r in requests:
+        r = str(r)
+        idn = r.split()[1][1:]
+        if authorProfile_id == idn:
+            requestsent = True
+        requestfrom = get_object_or_404(User, id=idn)
+        friendshiprequests.append(requestfrom)
+    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author, "all_friends": all_friends, "actualUser": actualUser, "link": link, "isFriend": isFriend, "isSelf": isSelf, "countfriends": countfriends, "friendshiprequests": friendshiprequests, "requestsent": requestsent})
 
 def getUsers(request):
     users = User.objects.all()
@@ -347,8 +357,12 @@ def imageUpload(request):
 def addfriend(request, pfriend_id):
     pfriend = get_object_or_404(User, id=pfriend_id)
     new_relationship = Friend.objects.add_friend(request.user, pfriend)
-    new_relationship.accept()
+    #new_relationship.accept()
     return profilemod(request, pfriend_id)
+
+#def acceptfriend(request):
+    #return profilemod(request, pfriend_id):
+
 
 
 
