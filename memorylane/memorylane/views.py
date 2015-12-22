@@ -263,6 +263,7 @@ def profilemod(request, authorProfile_id):
     first_name = user.first_name
     last_name = user.last_name
     all_friends = Friend.objects.friends(user)
+    countfriends = len(all_friends)
     friendsProfileImages=[]
     for friend in all_friends:
         friendProfile = get_object_or_404(UserProfile, username=friend.username)
@@ -272,7 +273,9 @@ def profilemod(request, authorProfile_id):
     #user = request.user
     profile = get_object_or_404(UserProfile, username=request.user.username)
     actualUser = request.user
-    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author, "all_friends": all_friends, "actualUser": actualUser, "link": link })
+    isFriend = Friend.objects.are_friends(actualUser, user)
+    isSelf = actualUser==user
+    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author, "all_friends": all_friends, "actualUser": actualUser, "link": link, "isFriend": isFriend, "isSelf": isSelf, "countfriends": countfriends})
 
 def getUsers(request):
     users = User.objects.all()

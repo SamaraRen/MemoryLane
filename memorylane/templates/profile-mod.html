@@ -44,7 +44,7 @@
 				</a>
 			</div>
 			{% empty %}
-    		<h2>This person hasn't shared any memories yet</h2>
+    		<h2>This person hasn't shared any memory yet</h2>
 		{% endfor %}
 		</div>
 		<div class="sidebar">
@@ -63,14 +63,25 @@
 					</div>
 				</div>
 				<hr>
+				{% if isFriend %}
+				<div>
+					<p>
+						You and {{user.first_name}} are already friends.
+					</p>
+				</div>
+				{% elif isSelf %}
+				<div>
+				</div>
+				{% else %}
 				<div>
 					<a href=/addfriend/{{user.id}}>
-					add friend
+					Add {{user.first_name}} as your friend
 					</a>
 				</div>
+				{% endif %}
 			</div>
 			<div class="widget">
-				<a href=/friends/><h2>Friends</h2></a>
+				<a href=/friends/><h2>{{user.first_name}}'s Friends ({{countfriends}})</h2></a>
 				<div class="group flex friends">
 					{% for friend, friendProfileImage in link reversed %}
 					<a class="thumb" href=/profile-mod/{{friend.id}}>
