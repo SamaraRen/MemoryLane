@@ -68,21 +68,33 @@
 						<p>
 							You and {{user.first_name}} are already friends.
 						</p>
-					{% elif requestsent %}
+					{% elif requestreceive %}
 						<p>
 							<a href=/acceptfriend/{{user.id}}>Accept {{user.first_name}}'s friend request<a>
+						</p>
+					{% elif requestsent %}
+						<p>
+							You already sent friend request to {{user.first_name}}.
 						</p>
 					{% elif isSelf %}
 						<p>
 						{% for u in friendshiprequests %}
-						{% if forloop.last %}
-						<span>and <a href=/profile-mod/{{u.id}}>{{u.first_name}}</a></span>
-						{% else %}
-						<span><a href=/profile-mod/{{u.id}}>{{u.first_name}}</a>,</span>
-						{% endif %}
+							{% if c %}
+								{% if forloop.last %}
+								<span>and <a href=/profile-mod/{{u.id}}>{{u.first_name}}</a></span>
+								{% elif forloop.first %}
+								<span><a href=/profile-mod/{{u.id}}>{{u.first_name}}</a></span>
+								{% else %}
+								<span>,<a href=/profile-mod/{{u.id}}>{{u.first_name}}</a></span>
+								{% endif %}
+								{% if countrequest %}
+								want to add you as friends, please click the names to confirm.
+								{% endif %}
+							{% else %}
+								<p><a href=/profile-mod/{{u.id}}>{{u.first_name}}</a> wants to add you as friends, please click the name to confirm.</p>
+							{% endif %}
 						{% endfor %}
-						want to add you as friends, please click the names to confirm.
-						</p>
+						<p></p>
 					{% else %}
 						<a href=/addfriend/{{user.id}}>
 						Add {{user.first_name}} as your friend

@@ -277,15 +277,26 @@ def profilemod(request, authorProfile_id):
     isSelf = actualUser==user
     requests = Friend.objects.unread_requests(user=request.user)
     friendshiprequests = []
-    requestsent = False
+    requestreceive = False
     for r in requests:
         r = str(r)
         idn = r.split()[1][1:]
         if authorProfile_id == idn:
-            requestsent = True
+            requestreceive = True
         requestfrom = get_object_or_404(User, id=idn)
         friendshiprequests.append(requestfrom)
-    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author, "all_friends": all_friends, "actualUser": actualUser, "link": link, "isFriend": isFriend, "isSelf": isSelf, "countfriends": countfriends, "friendshiprequests": friendshiprequests, "requestsent": requestsent})
+    countrequest = len(friendshiprequests)
+    c = 0
+    if countrequest>=2:
+        c = 1
+    sent = Friend.objects.sent_requests(user=request.user)
+    requestsent = False
+    for s in sent:
+        s = str(s)
+        ids = s.split()[4][1:]
+        if authorProfile_id == ids:
+            requestsent = True
+    return render(request, 'profile-mod.html', {"user": user, "memories": memories, "profile": profile,"author": author, "all_friends": all_friends, "actualUser": actualUser, "link": link, "isFriend": isFriend, "isSelf": isSelf, "countfriends": countfriends, "friendshiprequests": friendshiprequests, "requestreceive": requestreceive, "c": c, "requestsent": requestsent, "countrequest": countrequest})
 
 def getUsers(request):
     users = User.objects.all()
