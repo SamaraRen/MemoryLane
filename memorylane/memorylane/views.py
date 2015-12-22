@@ -357,11 +357,13 @@ def imageUpload(request):
 def addfriend(request, pfriend_id):
     pfriend = get_object_or_404(User, id=pfriend_id)
     new_relationship = Friend.objects.add_friend(request.user, pfriend)
-    #new_relationship.accept()
     return profilemod(request, pfriend_id)
 
-#def acceptfriend(request):
-    #return profilemod(request, pfriend_id):
+def acceptfriend(request, pfriend_id):
+    pfriend = get_object_or_404(User, id=pfriend_id)
+    new_relationship = Friend.objects.add_friend(request.user, pfriend)
+    new_relationship.accept()
+    return profilemod(request, pfriend_id)
 
 
 
